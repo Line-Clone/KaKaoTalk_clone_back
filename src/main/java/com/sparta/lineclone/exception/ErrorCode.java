@@ -21,12 +21,14 @@ public enum ErrorCode {
     INVALID_FORMAT(HttpStatus.BAD_REQUEST, "username과 password의 형식이 올바르지 않습니다."),
     NOT_MATCH_INFORMATION(HttpStatus.BAD_REQUEST, "회원정보가 일치하지 않습니다."),
     NOT_FOUND_USER(HttpStatus.BAD_REQUEST, "회원을 찾을 수 없습니다."),
+    ALEADY_FRIEDNS(HttpStatus.BAD_REQUEST, "이미 친구사이 입니다."),
+    CANT_ADD_FRIENDS(HttpStatus.BAD_REQUEST, "본인은 친구 추가를 할 수 없습니다"),
+
 
 
     // 게시글 관련 ErrorCode
     NOT_FOUND_BOARD(HttpStatus.BAD_REQUEST, "게시글을 찾을 수 없습니다."),
     NOT_EXIST_CATEGORY(HttpStatus.BAD_REQUEST, "카테고리가 존재하지 않습니다."),
-
 
     // 댓글 관련 ErrorCode
     NOT_FOUND_COMMENT(HttpStatus.BAD_REQUEST, "댓글을 찾을 수 없습니다.");

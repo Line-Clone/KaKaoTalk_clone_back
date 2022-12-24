@@ -2,10 +2,12 @@ package com.sparta.lineclone.service;
 
 import com.sparta.lineclone.dto.LoginRequestDto;
 import com.sparta.lineclone.dto.SignupRequestDto;
+import com.sparta.lineclone.entity.Friend;
 import com.sparta.lineclone.entity.User;
 import com.sparta.lineclone.entity.UserRoleEnum;
 import com.sparta.lineclone.exception.CustomException;
 import com.sparta.lineclone.jwt.JwtUtil;
+import com.sparta.lineclone.repository.FriendRepository;
 import com.sparta.lineclone.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.sparta.lineclone.exception.ErrorCode.*;
@@ -26,6 +29,7 @@ import static com.sparta.lineclone.exception.ErrorCode.*;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final FriendRepository friendRepository;
     private final JwtUtil jwtUtil;  //의존성 주입(DI) --> jwtUtil.class 에서 @Component 로 빈을 등록했기때문에 가능
     private final PasswordEncoder passwordEncoder;
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
@@ -62,10 +66,22 @@ public class UserService {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new CustomException(NOT_FOUND_USER)
         );
-        if(!passwordEncoder.matches(password, user.getPassword())) {
-            throw  new CustomException(NOT_MATCH_INFORMATION);
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new CustomException(NOT_MATCH_INFORMATION);
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(), user.getRole()));
     }
-}
+
+    @Transactional
+    public void addfriend(User user, Long friendId) {
+        if(friendRepository.findByIdAndFriendId(user.getId(), friendId).isPresent()){
+            throw new CustomException(ALEADY_FRIEDNS);
+        }
+        if(Objects.equals(user .getId(), friendId)){
+            throw new CustomException(CANT_ADD_FRIENDS);
+        }
+        friendRepository.saveAndFlush(new Friend(user,friendId));
+    }
+
+ }

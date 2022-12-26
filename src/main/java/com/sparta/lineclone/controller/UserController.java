@@ -13,21 +13,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<MsgResponseDto> signup(@Valid @RequestBody SignupRequestDto signupRequestDto) {   //(@RequestBody @Valid SignupRequestDto signupRequestDto)?
+    public ResponseEntity<MsgResponseDto> signup(@RequestBody SignupRequestDto signupRequestDto) {   //(@RequestBody @Valid SignupRequestDto signupRequestDto)?
         userService.signup(signupRequestDto);
         return ResponseEntity.ok(new MsgResponseDto("회원가입 완료", HttpStatus.OK.value()));
     }
 
-    @ResponseBody
+//    @ResponseBody
     @PostMapping("/login")
     public ResponseEntity<MsgResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
@@ -36,7 +35,8 @@ public class UserController {
 
     @PostMapping("/addfriend/{friendId}")
     public ResponseEntity<MsgResponseDto> addFriend(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long friendId){
-        userService.addfriend(userDetails.getUser(), friendId);
+        userService.addFriend(userDetails.getUser(), friendId);
+
         return ResponseEntity.ok(new MsgResponseDto("친구 추가 완료",HttpStatus.OK.value()));
     }
 }

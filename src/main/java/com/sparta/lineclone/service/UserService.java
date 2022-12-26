@@ -38,12 +38,12 @@ public class UserService {
     public void signup(@Valid SignupRequestDto signupRequestDto) {      //@Valid 추가 주의!
         String username = signupRequestDto.getUsername();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());   //저장하기 전에 password 를 Encoder 한다
+        String nickname = signupRequestDto.getNickname();
 
-        Optional<User> found = userRepository.findByUsername(username);  //userRepository 에 구현하기
+        Optional<User> found = userRepository.findByUsernameOrNickname(username, nickname);  //userRepository 에 구현하기
         if (found.isPresent()) {
             throw new CustomException(DUPLICATED_USERNAME);
         }
-
         // 사용자 ROLE(권한) 확인
         UserRoleEnum role = UserRoleEnum.USER;
         if (signupRequestDto.isAdmin()) {
@@ -53,7 +53,7 @@ public class UserService {
             role = UserRoleEnum.ADMIN;
         }
 
-        User user = new User(username, password, role);
+        User user = new User(username, password,nickname, role);
         userRepository.save(user);
     }
 
@@ -74,14 +74,15 @@ public class UserService {
     }
 
     @Transactional
-    public void addfriend(User user, Long friendId) {
-        if(friendRepository.findByIdAndFriendId(user.getId(), friendId).isPresent()){
+    public void addFriend(User user, Long friendId) {
+        if (friendRepository.findByIdAndFriendId(user.getId(), friendId).isPresent()) {
             throw new CustomException(ALEADY_FRIEDNS);
         }
-        if(Objects.equals(user .getId(), friendId)){
+        if (Objects.equals(user.getId(), friendId)) {
             throw new CustomException(CANT_ADD_FRIENDS);
         }
-        friendRepository.saveAndFlush(new Friend(user,friendId));
+        friendRepository.saveAndFlush(new Friend(user, friendId));
     }
+
 
  }

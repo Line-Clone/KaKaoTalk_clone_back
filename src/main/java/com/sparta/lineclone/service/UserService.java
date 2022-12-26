@@ -83,6 +83,4 @@ public class UserService {
         }
         friendRepository.saveAndFlush(new Friend(user, friendId));
     }
-
-
- }
+}

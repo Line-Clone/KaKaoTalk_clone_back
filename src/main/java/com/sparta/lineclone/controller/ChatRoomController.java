@@ -1,8 +1,10 @@
 package com.sparta.lineclone.controller;
 
 import com.sparta.lineclone.entity.ChatRoom;
+import com.sparta.lineclone.security.UserDetailsImpl;
 import com.sparta.lineclone.service.ChatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

@@ -1,8 +1,7 @@
 package com.sparta.lineclone.controller;
 
-import com.sparta.lineclone.dto.LoginRequestDto;
-import com.sparta.lineclone.dto.MsgResponseDto;
-import com.sparta.lineclone.dto.SignupRequestDto;
+import com.sparta.lineclone.dto.*;
+import com.sparta.lineclone.entity.Friend;
 import com.sparta.lineclone.security.UserDetailsImpl;
 import com.sparta.lineclone.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

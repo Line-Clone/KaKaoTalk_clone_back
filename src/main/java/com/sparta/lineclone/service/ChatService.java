@@ -1,5 +1,6 @@
 package com.sparta.lineclone.service;
 
+import com.sparta.lineclone.dto.ChatListDto;
 import com.sparta.lineclone.entity.ChatMessage;
 import com.sparta.lineclone.entity.ChatRoom;
 import com.sparta.lineclone.entity.User;
@@ -27,12 +28,15 @@ public class ChatService {
     }    //의존관게 주입완료되면 실행되는 코드
 
     //채팅방 불러오기
-    public List<ChatRoom> findAllRoom() {                     //채팅방 최근 생성 순으로 반환
+    public List<ChatListDto> findAllRoom() {                     //채팅방 최근 생성 순으로 반환
         List<ChatRoom> result = chatRoomRepository.findAll();
-//        List<ChatRoom> result = new ArrayList<>()
         Collections.reverse(result);
+        List<ChatListDto> chatList = new ArrayList<>();
 
-        return result;
+        for(ChatRoom chatRoomList : result){
+            chatList.add(new ChatListDto(chatRoomList));
+        }
+        return chatList;
     }
 
     public ChatRoom findById(String roomId) {       //채팅방 하나 불러오기

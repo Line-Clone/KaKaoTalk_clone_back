@@ -84,7 +84,6 @@ public class UserService {
         friendRepository.saveAndFlush(new Friend(user, friendId));
     }
 
-
     public UserInfo searchFriend(User user, String friendName) {
         User friend = userRepository.findByNickname(friendName).orElseThrow(
                 () -> new CustomException(NOT_FOUND_USER)

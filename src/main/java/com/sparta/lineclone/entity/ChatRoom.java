@@ -24,7 +24,6 @@ public class ChatRoom {
     private String roomName;
     private String createUserName;
 
-
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
     private List<Chat> chatList = new ArrayList<>();
 

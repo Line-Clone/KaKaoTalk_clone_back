@@ -1,15 +1,21 @@
 package com.sparta.lineclone.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@NoArgsConstructor
+
 public class Chat extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    private String userId;
+
     private String message;
     private String roomId;
 
@@ -22,3 +28,4 @@ public class Chat extends Timestamped {
         this.chatRoom = chatRoom;
     }
 }
+

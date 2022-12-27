@@ -3,6 +3,8 @@ package com.sparta.lineclone.service;
 import com.sparta.lineclone.entity.ChatMessage;
 import com.sparta.lineclone.entity.ChatRoom;
 import com.sparta.lineclone.entity.User;
+import com.sparta.lineclone.exception.CustomException;
+import com.sparta.lineclone.exception.ErrorCode;
 import com.sparta.lineclone.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,14 +35,15 @@ public class ChatService {
         return result;
     }
 
-    public ChatRoom findById(String roomId) {                 //채팅방 하나 불러오기
-        return chatRooms.get(roomId);
+    public ChatRoom findById(String roomId) {       //채팅방 하나 불러오기
+        return  chatRoomRepository.findByRoomId(roomId).orElseThrow(
+                () -> new CustomException(ErrorCode.NOT_MATCH_INFORMATION)
+        );
     }
 
 
     public ChatRoom createRoom(String name) {                   //채팅방 생성
         ChatRoom chatRoom = ChatRoom.create(name);
-
         chatRoomRepository.save(chatRoom);
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
         return chatRoom;

@@ -22,10 +22,16 @@ public class Chat extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     private ChatRoom chatRoom;
 
+    @Column
+    private String sender;
+
+
+
     public Chat(ChatRoom chatRoom, String roomId, ChatMessage message) {
         this.roomId = roomId;
         this.message = message.getMessage();
         this.chatRoom = chatRoom;
+        this.sender = message.getSender();
     }
 }
 

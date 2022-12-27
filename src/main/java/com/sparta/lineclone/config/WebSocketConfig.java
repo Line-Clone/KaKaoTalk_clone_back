@@ -29,15 +29,6 @@ public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBro
                 .setAllowedOrigins("*")
                 .withSockJS();
     }
-
-
-
-
-
-
-
-
-
 //    @Override
 //    public void configureMessageBroker(MessageBrokerRegistry config) {             // 메세지를 중간에서 라우팅 할 때 사용하는 메세지 브로커 구성
 //
@@ -48,13 +39,4 @@ public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBro
 //        // setApplicationDestinationPrefixes에는 메시지 발행 요청의 prefix를 넣는다. 즉, /pub로 시작하는 메시지만 해당 Broker에서 받아서 처리한다.
 //        config.setApplicationDestinationPrefixes("/app");
 //    }
-//
-//    @Override
-//    public void registerStompEndpoints(StompEndpointRegistry registry) { //클라이언트에서 WebSocket에 접속할 수 있는 endpoint를 지정한다.
-//        registry.addEndpoint("/gs-guide-websocket")
-//                .setAllowedOrigins("*")
-//                .withSockJS();
-//    }
-
-
 }

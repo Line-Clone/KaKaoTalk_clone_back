@@ -2,6 +2,10 @@ package com.sparta.lineclone.controller;
 
 import com.sparta.lineclone.dto.*;
 import com.sparta.lineclone.entity.Friend;
+import com.sparta.lineclone.dto.LoginRequestDto;
+import com.sparta.lineclone.dto.MsgResponseDto;
+import com.sparta.lineclone.dto.SignupRequestDto;
+import com.sparta.lineclone.dto.UserInfo;
 import com.sparta.lineclone.security.UserDetailsImpl;
 import com.sparta.lineclone.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +37,10 @@ public class UserController {
         return ResponseEntity.ok(new MsgResponseDto("로그인 완료",HttpStatus.OK.value()));
     }
 
+    @PostMapping("/friend/search")
+    public ResponseEntity<UserInfo> searchFriend(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String friendName){
+        return ResponseEntity.ok(userService.searchFriend(userDetails.getUser(),friendName));
+    }
     @PostMapping("/addfriend/{friendId}")
     public ResponseEntity<MsgResponseDto> addFriend(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable Long friendId){
         userService.addFriend(userDetails.getUser(), friendId);

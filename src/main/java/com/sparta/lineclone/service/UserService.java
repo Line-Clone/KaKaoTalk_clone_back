@@ -2,6 +2,7 @@ package com.sparta.lineclone.service;
 
 import com.sparta.lineclone.dto.LoginRequestDto;
 import com.sparta.lineclone.dto.SignupRequestDto;
+import com.sparta.lineclone.dto.UserInfo;
 import com.sparta.lineclone.entity.Friend;
 import com.sparta.lineclone.entity.User;
 import com.sparta.lineclone.entity.UserRoleEnum;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -35,7 +35,7 @@ public class UserService {
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     @Transactional
-    public void signup(@Valid SignupRequestDto signupRequestDto) {      //@Valid 추가 주의!
+    public void signup(SignupRequestDto signupRequestDto) {      //@Valid 추가 주의!
         String username = signupRequestDto.getUsername();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());   //저장하기 전에 password 를 Encoder 한다
         String nickname = signupRequestDto.getNickname();
@@ -85,4 +85,10 @@ public class UserService {
     }
 
 
- }
+    public UserInfo searchFriend(User user, String friendName) {
+        User friend = userRepository.findByNickname(friendName).orElseThrow(
+                () -> new CustomException(NOT_FOUND_USER)
+        );
+        return new UserInfo(friend);
+    }
+}

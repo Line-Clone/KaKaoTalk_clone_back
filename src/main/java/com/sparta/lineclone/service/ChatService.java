@@ -1,5 +1,7 @@
 package com.sparta.lineclone.service;
 
+import com.sparta.lineclone.dto.ChatMessageDto;
+import com.sparta.lineclone.entity.Chat;
 import com.sparta.lineclone.dto.ChatListDto;
 import com.sparta.lineclone.entity.ChatMessage;
 import com.sparta.lineclone.entity.ChatRoom;
@@ -9,6 +11,8 @@ import com.sparta.lineclone.event.ChatedEvent;
 import com.sparta.lineclone.exception.CustomException;
 import com.sparta.lineclone.exception.ErrorCode;
 
+import com.sparta.lineclone.repository.ChatMessageRepository;
+import com.sparta.lineclone.repository.ChatRepository;
 import com.sparta.lineclone.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.swing.text.html.Option;
 import java.util.*;
 
 @Service
@@ -28,6 +33,7 @@ public class ChatService {
     @Autowired
     ApplicationEventPublisher publisher;
     private Map<String, ChatRoom> chatRooms;
+    private final ChatRepository chatRepository;
     private final ChatRoomRepository chatRoomRepository;
 
     @PostConstruct
@@ -63,6 +69,13 @@ public class ChatService {
         publisher.publishEvent(new ChatedEvent(chatRoom));
         return chatRoom;
     }
+
+    @Transactional
+    public ChatMessageDto getAllMessages(String roomId) {
+        Optional<Chat> chatList = chatRepository.findByRoomId(roomId);
+        return new ChatMessageDto(chatList);
+    }
+
 
 
     public void sendMessage(User user, ChatMessage message) {

@@ -25,8 +25,6 @@ public class Chat extends Timestamped {
     @Column
     private String sender;
 
-
-
     public Chat(ChatRoom chatRoom, String roomId, ChatMessage message) {
         this.roomId = roomId;
         this.message = message.getMessage();

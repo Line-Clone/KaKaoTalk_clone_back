@@ -8,11 +8,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+
 public class Chat extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String message;
     private String roomId;
@@ -26,3 +28,4 @@ public class Chat extends Timestamped {
         this.chatRoom = chatRoom;
     }
 }
+

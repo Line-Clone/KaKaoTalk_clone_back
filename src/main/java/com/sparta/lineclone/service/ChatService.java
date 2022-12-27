@@ -3,12 +3,19 @@ package com.sparta.lineclone.service;
 import com.sparta.lineclone.entity.ChatMessage;
 import com.sparta.lineclone.entity.ChatRoom;
 import com.sparta.lineclone.entity.User;
+
+import com.sparta.lineclone.event.ChatedEvent;
 import com.sparta.lineclone.exception.CustomException;
 import com.sparta.lineclone.exception.ErrorCode;
+
 import com.sparta.lineclone.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -17,9 +24,10 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 public class ChatService {
-    private final ChatRoomRepository chatRoomRepository;
-
+    @Autowired
+    ApplicationEventPublisher publisher;
     private Map<String, ChatRoom> chatRooms;
+    private final ChatRoomRepository chatRoomRepository;
 
     @PostConstruct
     private void init() {
@@ -42,10 +50,13 @@ public class ChatService {
     }
 
 
+    @Transactional
     public ChatRoom createRoom(String name) {                   //채팅방 생성
         ChatRoom chatRoom = ChatRoom.create(name);
         chatRoomRepository.save(chatRoom);
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
+//        chatRoomRepository.save(chatRoom);
+        publisher.publishEvent(new ChatedEvent(chatRoom));
         return chatRoom;
     }
 

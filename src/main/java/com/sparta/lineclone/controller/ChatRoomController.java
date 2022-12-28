@@ -1,6 +1,7 @@
 package com.sparta.lineclone.controller;
 
 import com.sparta.lineclone.dto.ChatRoomListResponseDto;
+import com.sparta.lineclone.dto.ChatRoomResponseDto;
 import com.sparta.lineclone.dto.UserInfo;
 import com.sparta.lineclone.entity.ChatRoom;
 import com.sparta.lineclone.repository.ChatRoomRepository;
@@ -51,7 +52,7 @@ public class ChatRoomController {
     // 특정 채팅방 조회
     @GetMapping("/room/{roomId}")
     @ResponseBody
-    public ChatRoom roomInfo(@PathVariable String roomId) {
-        return chatService.findById(roomId);
+    public ChatRoomResponseDto roomInfo(@AuthenticationPrincipal UserDetailsImpl userDetails, @PathVariable String roomId) {
+        return chatService.findById(userDetails.getUser(), roomId);
     }
 }

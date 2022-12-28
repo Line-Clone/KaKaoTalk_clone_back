@@ -1,6 +1,7 @@
 package com.sparta.lineclone.service;
 
-import com.sparta.lineclone.dto.ChatMessageDto;
+import com.sparta.lineclone.dto.ChatRoomResponseDto;
+import com.sparta.lineclone.dto.MessageResponseDto;
 import com.sparta.lineclone.entity.Chat;
 import com.sparta.lineclone.dto.ChatListDto;
 import com.sparta.lineclone.entity.ChatMessage;
@@ -11,19 +12,16 @@ import com.sparta.lineclone.event.ChatedEvent;
 import com.sparta.lineclone.exception.CustomException;
 import com.sparta.lineclone.exception.ErrorCode;
 
-import com.sparta.lineclone.repository.ChatMessageRepository;
 import com.sparta.lineclone.repository.ChatRepository;
 import com.sparta.lineclone.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.swing.text.html.Option;
 import java.util.*;
 
 @Service
@@ -53,10 +51,18 @@ public class ChatService {
         return chatList;
     }
 
-    public ChatRoom findById(String roomId) {       //채팅방 하나 불러오기
-        return  chatRoomRepository.findByRoomId(roomId).orElseThrow(
+    public ChatRoomResponseDto findById(User user, String roomId) {       //채팅방 하나 불러오기
+        ChatRoom chatRoom = chatRoomRepository.findByRoomId(roomId).orElseThrow(
                 () -> new CustomException(ErrorCode.NOT_MATCH_INFORMATION)
         );
+
+        List<MessageResponseDto> messageList = new ArrayList<>();
+        for(Chat messages : chatRoom.getChatList()){
+            messageList.add(new MessageResponseDto(messages));
+        }
+
+        return new ChatRoomResponseDto(chatRoom, messageList);
+
     }
 
 
@@ -70,11 +76,6 @@ public class ChatService {
         return chatRoom;
     }
 
-    @Transactional
-    public ChatMessageDto getAllMessages(String roomId) {
-        Optional<Chat> chatList = chatRepository.findByRoomId(roomId);
-        return new ChatMessageDto(chatList);
-    }
 
 
 

@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-
 public class Chat extends Timestamped {
 
     @Id
@@ -25,11 +24,16 @@ public class Chat extends Timestamped {
     @Column
     private String sender;
 
-    public Chat(ChatRoom chatRoom, String roomId, ChatMessage message) {
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public Chat(ChatRoom chatRoom, String roomId, ChatMessage message,User user) {
         this.roomId = roomId;
         this.message = message.getMessage();
         this.chatRoom = chatRoom;
         this.sender = message.getSender();
+        this.user = user;
     }
 }
 

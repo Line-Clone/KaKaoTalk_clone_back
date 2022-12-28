@@ -18,10 +18,6 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "chat_room_id")
-//    private ChatRoom chatRoom;
-
     public enum MessageType {
         ENTER, TALK
     }

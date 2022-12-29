@@ -1,5 +1,19 @@
 # 카카오톡 클론 코딩
 
+## 🎅 개발 기간 & 조원
+<li>2022.12.23 - 2022.12.29</li> <br />
+  
+> **FE**
+  >> 김현빈
+  >> 이정민
+  
+> **BE**
+  >> 김아영
+  >> 이상현
+  >> 이상훈
+  
+<br /> <br />
+
 ## 🛠 기술 스택
 <br />
 <div align=center>
@@ -18,21 +32,27 @@
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
   <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white">
   <br />
+  <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 </div>
 
 ## 📢 주요 기능
 <ul>
 <li> 로그인/회원가입 </li>
 <li> 채팅 리스트 조회 </li>
-<li> ✨ 실시간 채팅 ✨ </li>
+<li> ✨ 실시간 오픈 채팅 ✨ </li>
 </ul>
 <br /> <br />
 
 ## 📽 시연 영상
-
+[카카오톡 클론코딩](https://youtu.be/hxPeeH3jkm4)
 <br /> <br />
 
 ## WHAT WE MAKE
+<img src = "https://user-images.githubusercontent.com/117756400/209921111-22c84cb2-754f-4031-8c55-27b7f780cdc0.png"></img>
+<img src = "https://user-images.githubusercontent.com/117756400/209921069-1fe394f0-0381-405e-ba86-4a5e14679045.png"></img>
+<img src = "https://user-images.githubusercontent.com/117756400/209921116-3684f3fb-f4d8-41d4-8585-bec58ec72d53.png"></img>
+<img src = "https://user-images.githubusercontent.com/117756400/209921124-2561f340-a0d8-43c2-8ae2-7eecfc4c3e9e.png"></img>
+<img src = "https://user-images.githubusercontent.com/117756400/209921133-694b236f-8144-4cb6-a903-263fa1e5e518.png"></img>
 
 <br /> <br />
 

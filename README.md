@@ -44,8 +44,12 @@
 <br />
 
 ## 📌 ERD
+프로젝트 계획 단계
 <img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4a193344-fdea-4d16-9980-db1b7e7cff72%2FUntitled.png?id=77d552bc-45f9-4b4d-8a95-5a16b55a11a5&table=block&spaceId=0be2dc4f-eddb-4575-ab82-ebc6e9ad838f&width=1860&userId=6d08975a-ddbd-485c-80a4-40401675e07a&cache=v2" width = "95%"></img>
 <br />
+프로젝트 구현 
+![image](https://user-images.githubusercontent.com/109057365/209909723-0a57559a-3123-48c9-a802-716920c67d81.png)
+
 
 ## 📃 API 명세서
 [API 명세서](https://www.notion.so/f5ee37fc5b664dad9bd9767653a88496?v=a5f4ae1dda90416e860c340697e1528b)
